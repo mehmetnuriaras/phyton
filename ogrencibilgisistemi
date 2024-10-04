@@ -1,0 +1,47 @@
+sinifinTamami={
+   
+}
+
+
+def all():
+
+    print('tum sinifin notlari su sekildedir')
+    for x in sinifinTamami:
+        print(x, 'numarali ogrencinin notlari:')
+        print(sinifinTamami.get(x),'\n')
+
+    #print(sinifinTamami)
+    
+def printOgrenci(printEdilecekOgrenci):
+    print(printEdilecekOgrenci, " numarali ogrencinin notlari asagidaki gibidir")
+    print(sinifinTamami.get(int(printEdilecekOgrenci)),'\n')
+    
+def ogrenciNotEkleme(ogrenciBilgileri):
+    numara=ogrenciBilgileri.split()
+    ogrenciNo=int(numara[0])
+    ogrenciNot=int(numara[1])
+    if ogrenciNo not in [*sinifinTamami]:
+        sinifinTamami.update({ogrenciNo:[]})
+        print(ogrenciNo, 'numarali ogrenci icin yeni kayit olusturulmus ve notu kaydedilmistir.')
+    else: 
+        print(ogrenciNo," numarali ogrencinin", len(sinifinTamami.get(ogrenciNo))+1 ,". notu eklenmistir.")
+    sinifinTamami.get(ogrenciNo).append(ogrenciNot)
+   
+
+    
+    
+print('Tum ogrencilerin notlarini gormek icin all','\n', 'Istediginiz ogrencinin notunu gormek icin print ogrencino,','\n', 'not girmek icin ogrencino ve not yaziniz= ')
+girdi=input()
+while girdi!='q':
+    bilgi=girdi.split()
+   
+    if girdi=='all':
+        all()
+        
+    elif  bilgi[0]=="print":
+            printOgrenci(bilgi[1])
+            
+    else:
+            ogrenciNotEkleme(girdi)
+
+    girdi=input('yukarida verilen bilgiler isiginda input giriniz= ')
