@@ -27,10 +27,17 @@ def ogrenciNotEkleme(ogrenciBilgileri):
         print(ogrenciNo," numarali ogrencinin", len(sinifinTamami.get(ogrenciNo))+1 ,". notu eklenmistir.")
     sinifinTamami.get(ogrenciNo).append(ogrenciNot)
    
-
+def ogrenciNotGuncelleme(guncellemeBilgileri):
+    das, ogrenciNo, imtihanNo, yeniNot=guncellemeBilgileri.split()
+    sinifinTamami.get(int(ogrenciNo))[int(imtihanNo)-1]=int(yeniNot)
+    print(ogrenciNo, " numarali ogrencinin ", imtihanNo, " numarali sinav notu guncellenmistir.")
     
     
-print('Tum ogrencilerin notlarini gormek icin all','\n', 'Istediginiz ogrencinin notunu gormek icin print ogrencino,','\n', 'not girmek icin ogrencino ve not yaziniz= ')
+print('Tum ogrencilerin notlarini gormek icin all','\n',
+      'Istediginiz ogrencinin notunu gormek icin print ogrencino,',
+      '\n', 'not girmek icin ogrencino ve not yaziniz= ',
+      '\n', 'not guncellemek icin update ogrencino kacinci imtihani guncellemek istediginizi ve yeninotu yaziniz',
+      '\n', 'ornek1: 123 32, ornek2: update 123 1 42, ornek3: print 123, ornek4:all')
 girdi=input()
 while girdi!='q':
     bilgi=girdi.split()
@@ -39,9 +46,24 @@ while girdi!='q':
         all()
         
     elif  bilgi[0]=="print":
-            printOgrenci(bilgi[1])
+        printOgrenci(bilgi[1])
+    
+    elif  bilgi[0]=="update":
+        try:
+            int(bilgi[1])
+            int(bilgi[2])
+            int(bilgi[3])
+            ogrenciNotGuncelleme(girdi)
+        except:
+                print("yukarida verilen bilgiler dogrultusunda giris yapiniz lutfen.")
             
     else:
+        try:
+            int(bilgi[0])
+            int(bilgi[1])
             ogrenciNotEkleme(girdi)
-
+        except:
+                print("yukarida verilen bilgiler dogrultusunda giris yapiniz lutfen.")
+                
+                
     girdi=input('yukarida verilen bilgiler isiginda input giriniz= ')
