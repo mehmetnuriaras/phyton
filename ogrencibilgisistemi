@@ -1,42 +1,6 @@
-from fileio import getUserList,writeUserList
+from ogrenciNotIslemleri import ogrenciNotEkleme,ogrenciNotGuncelleme,ogrenciNotuYazdir,yazdir
 
-try:
-    sinifinTamami=getUserList()
-except:
-    sinifinTamami={}
-    writeUserList(sinifinTamami)
-     
-def ogrenciNotEkleme(ogrenciBilgileri):
-    ogrenciNo, ogrenciNot, *rest=ogrenciBilgileri
-    isStudentExist=ogrenciNo not in sinifinTamami.keys()
-    if isStudentExist: 
-        sinifinTamami.update({ogrenciNo:[]})
-        
-    sinifinTamami.get(ogrenciNo).append(ogrenciNot)
-    try:
-        writeUserList(sinifinTamami)
-    except:
-        print("bir hata olustu")
 
-    print(f'{ogrenciNo} numarali ogrencinin {len(sinifinTamami.get(ogrenciNo))}. notu eklenmistir.' 
-          if not isStudentExist else 
-          f'{ogrenciNo} numarali ogrencinin kaydi olusturulmus ve ilk sinav girisi yapilmistir.')
-   
-def ogrenciNotGuncelleme(guncellemeBilgileri):
-    ogrenciNo, imtihanNo, yeniNot , *rest =guncellemeBilgileri
-    sinifinTamami.get(ogrenciNo)[imtihanNo-1]=yeniNot
-    print(ogrenciNo, " numarali ogrencinin ", imtihanNo, " numarali sinav notu guncellenmistir.")
-    
-def ogrenciNotuYazdir(ogrenciNo):
-    if  isinstance(ogrenciNo,int):
-        print(ogrenciNo, " numarali ogrencinin notlari asagidaki gibidir")
-        print(sinifinTamami.get(ogrenciNo),'\n') # string olarak devam etmek icin tanimlarken string tanimla
-    else:
-        print('tum sinifin notlari su sekildedir')
-        for x in sinifinTamami.keys():
-            print(x, 'numarali ogrencinin notlari:')
-            print(sinifinTamami.get(x),'\n')
-     
     
 print('Tum ogrencilerin notlarini gormek icin all','\n',
       'Istediginiz ogrencinin notunu gormek icin print ogrencino,',
@@ -46,7 +10,9 @@ print('Tum ogrencilerin notlarini gormek icin all','\n',
 girdi=input()
 while girdi!='q':
     bilgi=girdi.split()
-   
+    if girdi=="yazdir":
+        yazdir()
+    
     if bilgi[0] in ['all','print']:
         try:
             ogrenciNotuYazdir(int(bilgi[1]))
